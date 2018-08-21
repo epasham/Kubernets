@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Pod
 metadata: 
   name: kuard
+  labels:
+    name: FirstPod
+    app: kuard
 spec:
   volumes:
     - name: "kuard-data"
