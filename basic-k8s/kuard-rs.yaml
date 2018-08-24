@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: kuard-rs
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: kuard
+        version: "2"
+    spec:
+      containers:
+        - name: kaurd-c
+          image: "gcr.io/kuar-demo/kuard-amd64:2"
+
