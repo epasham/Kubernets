@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-alpine-pod
+  labels:
+    env: dev
+    test: configmap
+spec:
+  containers:
+  - name: configmap-alpine-container
+    image: gcr.io/kuar-demo/kuard-amd64:1
+    imagePullPolicy: Always
+    env:
+    - name: ENV_ONE
+      valueFrom:
+        configMapKeyRef:
+          name: configmap-alpine
+          key: name  
+    volumeMounts:
+    - name: configmap-alpine-volume
+      mountPath: "/opt"
+  volumes:
+  - name: configmap-alpine-volume
+    configMap:
+      name: configmap-alpine
+
