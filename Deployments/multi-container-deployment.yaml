@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: multi-container-pod-deployment
+  labels:
+    label-name: multi-container-deployment
+    env: dev
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      label-name: multi-container-pod
+  replicas: 2  
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        label-name: multi-container-pod
+    spec:
+      containers:
+      - name: main-container
+        image: alpine
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do date >> /var/log/app.txt; sleep 5;done"]
+        volumeMounts:
+        - name: shared-logs
+          mountPath: /var/logs
+      - name: side-container
+        image: nginx:1.9.10
+        ports:
+        - containerPort: 80      
+        volumeMounts:
+        - name: shared-logs
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: shared-logs
+        hostPath:
+          path: /opt/k8volume
+  
