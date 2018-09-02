@@ -2,7 +2,13 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: pod-with-sidecar
- # namespace: default
+  namespace: kube-public
+  labels:
+    env: dev
+    build: stable
+  annotations:
+    maintainer: rajesh
+    org: persistent
 spec:
   containers:
   - name: main-container
