@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-handler
+  labels:
+    env: dev
+    task: lifecycle-handler
+  namespace: k8tasks
+spec:
+  containers:
+  - name: lifecycle-handler
+    image: nginx
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"] 
+      preStop:
+        exec:
+          command: ["/usr/sbin/nginx","-s","quit"]
+

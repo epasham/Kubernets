@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: two-ctr-pod
+  labels:
+    app: two-ctr-pod
+    env: dev
+spec:
+  volumes:
+  - name: shared-vol
+    emptyDir: {}
+  containers:
+  - name: nginx-ctr
+    image: nginx
+    volumeMounts:
+    - name: shared-vol
+      mountPath: /usr/share/nginx/html
+
+  - name: debian-ctr
+    image: debian
+    volumeMounts:
+    - name: shared-vol
+      mountPath: /pod-data
+    command: ["/bin/sh"]
+    args: ["-c","echo Hello from k8 > /pod-data/index.html "]

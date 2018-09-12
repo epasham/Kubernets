@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: "nginx-service"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-fs
+  template:
+    metadata:
+      labels:
+        app: nginx-fs
+    spec:
+      containers:
+      - name: nginx-fs
+        image: nginx
+        ports:
+        - containerPort: 80
+          name: web

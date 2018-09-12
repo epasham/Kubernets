@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selector
+  labels:
+    env: dev
+    task: node-selection
+  namespace: k8tasks
+spec:
+  containers:
+  - name: node-selector
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    name: worker2

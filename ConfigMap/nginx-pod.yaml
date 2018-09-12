@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-pod
+  namespace: default
+  labels:
+    env: dev
+    type: os
+spec:
+  containers:
+  - name: nginx-pod
+    image: nginx
+    env:
+    - name: SERVICE_TYPE
+      value: "SOFT"
+    - name: COMPANY_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-config
+          key: COMPANY
+    - name: USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: nginx-secret
+          key: USERNAME
+    volumeMounts:
+    - name: nginx-configmap-vol
+      mountPath: /opt/
+    - name: nginx-secret-vol
+      mountPath: /opt/abc/
+      readOnly: true
+  volumes:
+  - name: nginx-configmap-vol
+    configMap:
+      name: nginx-config
+  - name: nginx-secret-vol
+    secret:
+      secretName: nginx-secret 

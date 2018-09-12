@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: cuda-test
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values: [cuda-test]
+  template:
+    metadata:
+      labels:
+        app: cuda-test
+        env: dev
+    spec:
+      containers:
+      - name: cuda-test
+        image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      #  resources:
+      #    limits:
+      #      nvidia.com/gpu: 1
+ 

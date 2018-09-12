@@ -1,3 +1,4 @@
 Multinode Installation :---https://www.howtoforge.com/tutorial/centos-kubernetes-docker-cluster/
 Exam Details:::: https://matthewpalmer.net/kubernetes-app-developer/articles/ckad-exam-guide.html-----
 https://www.nirmata.com/
+Container Design Patterns: https://vitalflux.com/container-design-patterns-kubernetes-pods-design/

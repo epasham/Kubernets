@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: emptydir-volume
+  labels:
+    env: dev
+    task: volume-storage
+  namespace: k8tasks
+spec:
+  containers:
+  - name: emptydir-volume
+    image: redis
+    volumeMounts:
+    - name: redis-volume
+      mountPath: /data/redis
+  volumes:
+  - name: redis-volume
+    emptyDir: {}

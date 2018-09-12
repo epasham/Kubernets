@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: projected-volume
+  labels: 
+    env: dev
+    task: all-in-one-volume
+  annotations:
+    volumeType: ProjectedVolume
+spec:
+  containers:
+  - name: projected-volume
+    image: busybox
+    args:
+    - sleep
+    - "86400"
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - configMap:
+          name: username
+      - secret:
+          name: pwd

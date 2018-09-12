@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svc-env-demo
+  labels:
+    app: svc-env-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: svc-env-demo
+  template:
+    metadata:
+      labels:
+        app: svc-env-demo
+    spec:
+      containers:
+      - name: svc-env-demo
+        image: nginx
+        env:
+        - name: FIRST_ENV
+          value: firstenv
+        - name: SECOND_ENV
+          value: secondenv
+        ports:
+        - name: nginx-port
+          containerPort: 80
+  

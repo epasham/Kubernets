@@ -6,7 +6,7 @@ metadata:
   selfLink: /api/v1/namespaces/default/pods/counter
 spec:
   containers:
-  - arg:
+  - args:
     - /bin/sh
     - -c
     - 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 1; done'
@@ -14,27 +14,21 @@ spec:
     imagePullPolicy: Always
     name: count
     resources: {}
-      #requests:
-      #  cpu: 5Gi
-      #  memory: 500Gi
     terminationMessagePath: /dev/termination-log
     terminationMessagePolicy: File
-    ports:
-    - name: myport
-      containerPort: 80
-      hostPort: 8080
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
       name: default-token-z8c9n
       readOnly: true
   dnsPolicy: ClusterFirst
-  #nodeName: clm-pun-t634bo
+  nodeName: clm-pun-t634bo
   priority: 0
   restartPolicy: Always
   schedulerName: default-scheduler
   securityContext: {}
-  serviceAccount: default
-  serviceAccountName: default
+  serviceAccount: serviceuser
+  serviceAccountName: serviceuser
+  automountServiceAccountToken: false
   terminationGracePeriodSeconds: 30
   tolerations:
   - effect: NoExecute
@@ -50,6 +44,3 @@ spec:
     secret:
       defaultMode: 420
       secretName: default-token-z8c9n
-status:
-  phase: Pending
-  qosClass: BestEffort
